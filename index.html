@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SnapSeed — A simple personal expense management website." />
+  <title>Receipt-to-Budget</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================== Navigation ===================== -->
+  <header class="navbar" id="home">
+    <nav class="container">
+      <a href="#home" class="navbar-brand">SnapSeed</a>
+
+      <ul class="navbar-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#expenses">Expenses</a></li>
+        <li><a href="#budget">Budget</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#add-expense" class="btn btn-primary">Add Expense</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===================== Welcome Section ===================== -->
+    <section class="hero">
+      <div class="container">
+        <h1>Welcome to SnapSeed</h1>
+        <p>Track your expenses and manage your monthly budget easily.</p>
+
+        <div class="hero-buttons">
+          <a href="#add-expense" class="btn btn-primary">Add New Expense</a>
+          <a href="#upload" class="btn btn-outline">Upload Receipt</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Expense Summary ===================== -->
+    <section class="section" id="summary">
+      <div class="container">
+        <h2 class="section-title">Expense Summary</h2>
+        <p class="section-desc">A quick look at your spending this month.</p>
+
+        <!-- CSS Grid: 4 columns -->
+        <div class="summary-grid">
+          <div class="summary-card">
+            <h3>Total Spending</h3>
+            <p class="amount">&#8377;12,450</p>
+          </div>
+
+          <div class="summary-card">
+            <h3>Monthly Budget</h3>
+            <p class="amount">&#8377;20,000</p>
+          </div>
+
+          <div class="summary-card">
+            <h3>Remaining</h3>
+            <p class="amount">&#8377;7,550</p>
+          </div>
+
+          <div class="summary-card">
+            <h3>Total Expenses</h3>
+            <p class="amount">24</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Upload Receipt ===================== -->
+    <section class="section section-grey" id="upload">
+      <div class="container">
+        <h2 class="section-title">Upload Receipt</h2>
+        <p class="section-desc">Upload a receipt image to extract expense details.</p>
+
+        <div class="upload-box">
+          <p>Choose a receipt file from your device.</p>
+          <input type="file" accept=".jpg,.jpeg,.png,.pdf" />
+          <br />
+          <button class="btn btn-primary" type="button">Upload</button>
+          <p class="formats">Supported formats: JPG, PNG, PDF</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Budget Overview ===================== -->
+    <section class="section" id="budget">
+      <div class="container">
+        <h2 class="section-title">Monthly Budget</h2>
+        <p class="section-desc">See how much you have spent in each category.</p>
+
+        <!-- CSS Grid: 2 columns -->
+        <div class="budget-grid">
+
+          <!-- Food — normal -->
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <h3>Food</h3>
+              <span>&#8377;3,200 / &#8377;5,000</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="width: 64%;"></div>
+            </div>
+            <p class="percent">64% used</p>
+          </div>
+
+          <!-- Transport — warning (near limit) -->
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <h3>Transport</h3>
+              <span>&#8377;2,600 / &#8377;3,000</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill warning" style="width: 87%;"></div>
+            </div>
+            <p class="percent">87% used — nearing limit</p>
+          </div>
+
+          <!-- Shopping — normal -->
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <h3>Shopping</h3>
+              <span>&#8377;2,800 / &#8377;4,000</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="width: 70%;"></div>
+            </div>
+            <p class="percent">70% used</p>
+          </div>
+
+          <!-- Utilities — normal -->
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <h3>Utilities</h3>
+              <span>&#8377;1,850 / &#8377;3,000</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="width: 62%;"></div>
+            </div>
+            <p class="percent">62% used</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Recent Expenses ===================== -->
+    <section class="section section-grey" id="expenses">
+      <div class="container">
+        <h2 class="section-title">Recent Expenses</h2>
+        <p class="section-desc">Your latest transactions at a glance.</p>
+
+        <div class="table-wrapper">
+          <table class="expense-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Payment Method</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>18 Aug</td>
+                <td>Domino's Pizza</td>
+                <td><span class="category-tag tag-food">Food</span></td>
+                <td>&#8377;450</td>
+                <td>UPI</td>
+              </tr>
+              <tr>
+                <td>17 Aug</td>
+                <td>Uber Ride</td>
+                <td><span class="category-tag tag-transport">Transport</span></td>
+                <td>&#8377;180</td>
+                <td>UPI</td>
+              </tr>
+              <tr>
+                <td>16 Aug</td>
+                <td>Amazon Purchase</td>
+                <td><span class="category-tag tag-shopping">Shopping</span></td>
+                <td>&#8377;399</td>
+                <td>Card</td>
+              </tr>
+              <tr>
+                <td>15 Aug</td>
+                <td>Electricity Bill</td>
+                <td><span class="category-tag tag-utilities">Utilities</span></td>
+                <td>&#8377;1,200</td>
+                <td>Net Banking</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Add Expense Form ===================== -->
+    <section class="section" id="add-expense">
+      <div class="container">
+        <h2 class="section-title">Add New Expense</h2>
+        <p class="section-desc">Fill in the details below to add an expense.</p>
+
+        <form class="expense-form" action="#" method="post">
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="description">Expense Description</label>
+              <input type="text" id="description" placeholder="e.g. Domino's Pizza" required />
+            </div>
+
+            <div class="form-group">
+              <label for="amount">Amount (&#8377;)</label>
+              <input type="number" id="amount" placeholder="e.g. 450" min="1" required />
+            </div>
+
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select id="category" required>
+                <option value="" disabled selected>Select category</option>
+                <option value="food">Food</option>
+                <option value="transport">Transport</option>
+                <option value="shopping">Shopping</option>
+                <option value="utilities">Utilities</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" id="date" required />
+            </div>
+
+            <div class="form-group">
+              <label for="payment">Payment Method</label>
+              <select id="payment">
+                <option value="upi">UPI</option>
+                <option value="card">Card</option>
+                <option value="cash">Cash</option>
+                <option value="netbanking">Net Banking</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="notes">Notes (Optional)</label>
+              <textarea id="notes" placeholder="Any extra details..." rows="3"></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save Expense</button>
+              <button type="reset" class="btn btn-outline">Clear</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===================== Budget Alert ===================== -->
+    <section class="section section-grey">
+      <div class="container">
+        <h2 class="section-title">Budget Reminder</h2>
+
+        <div class="alert-box">
+          <h3>Transport budget is almost used up</h3>
+          <p>Your Transport budget is 87% used. Only &#8377;400 remaining this month. Consider using public transport to save money.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== About Section ===================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <h2 class="section-title">About SnapSeed</h2>
+
+        <div class="about-box">
+          <p>
+            SnapSeed is a simple personal expense management application
+            designed to help users track their daily expenses, manage monthly budgets
+            and monitor spending across different categories. Users can upload receipts
+            or manually add expenses to keep an accurate record of their finances.
+            This project is built as part of a Full Stack Development course.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-brand">SnapSeed</p>
+      <p class="footer-tagline">Track your expenses. Manage your budget.</p>
+
+      <nav class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#home">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+</html>

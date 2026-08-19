@@ -1,0 +1,582 @@
+/* ============================================
+   Receipt-to-Budget — Stylesheet
+   A simple, clean CSS file for a college project
+   ============================================ */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --green: #4caf50;
+  --green-dark: #43a047;
+  --green-light: #e8f5e9;
+  --blue-light: #e3f2fd;
+  --orange-light: #fff3e0;
+  --orange: #ef8c2d;
+  --red-light: #ffeaea;
+  --red: #d14040;
+  --white: #ffffff;
+  --grey-bg: #f5f6f8;
+  --grey-border: #dde1e6;
+  --grey-text: #555555;
+  --dark: #222222;
+  --font: "Segoe UI", Arial, sans-serif;
+  --radius: 8px;
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  --max-width: 960px;
+}
+
+/* ---------- Reset ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--dark);
+  background-color: var(--white);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ---------- Reusable Container ---------- */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- Section Spacing ---------- */
+.section {
+  padding: 50px 0;
+}
+
+.section-grey {
+  background-color: var(--grey-bg);
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.section-desc {
+  font-size: 15px;
+  color: var(--grey-text);
+  margin-bottom: 28px;
+}
+
+
+/* ============================================
+   1. NAVIGATION BAR
+   ============================================ */
+.navbar {
+  background-color: var(--white);
+  border-bottom: 1px solid var(--grey-border);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navbar-links a {
+  font-size: 15px;
+  color: var(--grey-text);
+  padding: 4px 0;
+  transition: color 0.2s;
+}
+
+.navbar-links a:hover,
+.navbar-links a:focus {
+  color: var(--green);
+}
+
+.btn {
+  display: inline-block;
+  padding: 9px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--green);
+  color: var(--white);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--green-dark);
+}
+
+.btn-outline {
+  background-color: var(--white);
+  color: var(--green);
+  border: 1px solid var(--green);
+}
+
+.btn-outline:hover,
+.btn-outline:focus {
+  background-color: var(--green-light);
+}
+
+
+/* ============================================
+   2. WELCOME / HERO SECTION
+   ============================================ */
+.hero {
+  text-align: center;
+  padding: 60px 0 50px;
+  background-color: var(--green-light);
+}
+
+.hero h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 16px;
+  color: var(--grey-text);
+  margin-bottom: 24px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+
+/* ============================================
+   3. EXPENSE SUMMARY CARDS
+   ============================================ */
+
+/* Using CSS Grid — 4 equal columns */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.summary-card {
+  background-color: var(--white);
+  border: 1px solid var(--grey-border);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.summary-card h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--grey-text);
+  margin-bottom: 6px;
+}
+
+.summary-card .amount {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+
+/* ============================================
+   4. UPLOAD RECEIPT
+   ============================================ */
+.upload-box {
+  background-color: var(--white);
+  border: 2px dashed var(--grey-border);
+  border-radius: var(--radius);
+  padding: 36px;
+  text-align: center;
+  max-width: 520px;
+}
+
+.upload-box p {
+  font-size: 15px;
+  color: var(--grey-text);
+  margin-bottom: 16px;
+}
+
+.upload-box input[type="file"] {
+  margin-bottom: 16px;
+}
+
+.upload-box .formats {
+  font-size: 13px;
+  color: #999;
+  margin-top: 12px;
+}
+
+
+/* ============================================
+   5. BUDGET OVERVIEW — Progress Bars
+   ============================================ */
+
+/* Using CSS Grid — 2 columns */
+.budget-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.budget-card {
+  background-color: var(--white);
+  border: 1px solid var(--grey-border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.budget-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.budget-card-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.budget-card-header span {
+  font-size: 14px;
+  color: var(--grey-text);
+}
+
+/* Progress bar — created with two divs */
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: var(--grey-bg);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  background-color: var(--green);
+}
+
+/* Warning state — near limit */
+.progress-bar-fill.warning {
+  background-color: var(--orange);
+}
+
+/* Danger state — exceeded */
+.progress-bar-fill.danger {
+  background-color: var(--red);
+}
+
+.budget-card .percent {
+  font-size: 13px;
+  color: var(--grey-text);
+}
+
+
+/* ============================================
+   6. RECENT EXPENSES TABLE
+   ============================================ */
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--white);
+  border: 1px solid var(--grey-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.expense-table thead {
+  background-color: var(--grey-bg);
+}
+
+.expense-table th,
+.expense-table td {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.expense-table th {
+  font-weight: 600;
+  color: var(--grey-text);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.expense-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.expense-table tbody tr:hover {
+  background-color: var(--grey-bg);
+}
+
+.category-tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.tag-food       { background-color: var(--green-light); color: #2e7d32; }
+.tag-transport  { background-color: var(--blue-light);  color: #1565c0; }
+.tag-shopping   { background-color: #f3e5f5;           color: #7b1fa2; }
+.tag-utilities  { background-color: var(--orange-light); color: #e65100; }
+
+
+/* ============================================
+   7. ADD EXPENSE FORM
+   ============================================ */
+.expense-form {
+  background-color: var(--white);
+  border: 1px solid var(--grey-border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  max-width: 600px;
+}
+
+/* Using CSS Grid — 2 columns for form fields */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--grey-text);
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--grey-border);
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: var(--font);
+  background-color: var(--white);
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--green);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+
+/* ============================================
+   8. BUDGET ALERT
+   ============================================ */
+.alert-box {
+  background-color: var(--orange-light);
+  border-left: 4px solid var(--orange);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  max-width: 600px;
+}
+
+.alert-box h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--dark);
+}
+
+.alert-box p {
+  font-size: 14px;
+  color: var(--grey-text);
+}
+
+
+/* ============================================
+   9. ABOUT SECTION
+   ============================================ */
+.about-box {
+  max-width: 640px;
+}
+
+.about-box p {
+  font-size: 15px;
+  color: var(--grey-text);
+  line-height: 1.7;
+}
+
+
+/* ============================================
+   10. FOOTER
+   ============================================ */
+.site-footer {
+  background-color: var(--dark);
+  color: var(--white);
+  padding: 32px 0;
+  text-align: center;
+}
+
+.site-footer .footer-brand {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.site-footer .footer-tagline {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 16px;
+}
+
+/* Using Flexbox for footer links */
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 14px;
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover,
+.footer-links a:focus {
+  color: var(--white);
+}
+
+
+/* ============================================
+   RESPONSIVE — Mobile (max-width: 768px)
+   ============================================ */
+@media (max-width: 768px) {
+
+  /* Stack nav vertically */
+  .navbar .container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  /* Summary cards — 2 columns then 1 */
+  .summary-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Budget cards — single column */
+  .budget-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Form — single column */
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full-width {
+    grid-column: 1;
+  }
+
+  .form-actions {
+    grid-column: 1;
+  }
+
+  /* Table scroll */
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  /* Hero */
+  .hero h1 {
+    font-size: 22px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
