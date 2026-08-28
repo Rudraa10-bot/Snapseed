@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="SnapSeed — A simple personal expense management website." />
-  <title>Receipt-to-Budget</title>
+  <title>SnapSeed — Receipt to Budget</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -77,8 +77,9 @@
         <p class="section-desc">Upload a receipt image to extract expense details.</p>
 
         <div class="upload-box">
-          <p>Choose a receipt file from your device.</p>
-          <input type="file" accept=".jpg,.jpeg,.png,.pdf" />
+          <label for="receipt-file">Choose a receipt file from your device.</label>
+          <br />
+          <input type="file" id="receipt-file" accept=".jpg,.jpeg,.png,.pdf" />
           <br />
           <button class="btn btn-primary" type="button">Upload</button>
           <p class="formats">Supported formats: JPG, PNG, PDF</p>
@@ -141,6 +142,18 @@
               <div class="progress-bar-fill" style="width: 62%;"></div>
             </div>
             <p class="percent">62% used</p>
+          </div>
+
+          <!-- Other — exceeded (danger state demo) -->
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <h3>Other</h3>
+              <span>&#8377;1,100 / &#8377;1,000</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill danger" style="width: 100%;"></div>
+            </div>
+            <p class="percent">110% used — over budget</p>
           </div>
 
         </div>
@@ -300,7 +313,6 @@
       <nav class="footer-links">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a href="#home">Contact</a>
       </nav>
     </div>
   </footer>
