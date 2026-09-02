@@ -45,28 +45,8 @@
         <h2 class="section-title">Expense Summary</h2>
         <p class="section-desc">A quick look at your spending this month.</p>
 
-        <!-- CSS Grid: 4 columns -->
-        <div class="summary-grid">
-          <div class="summary-card">
-            <h3>Total Spending</h3>
-            <p class="amount">&#8377;12,450</p>
-          </div>
-
-          <div class="summary-card">
-            <h3>Monthly Budget</h3>
-            <p class="amount">&#8377;20,000</p>
-          </div>
-
-          <div class="summary-card">
-            <h3>Remaining</h3>
-            <p class="amount">&#8377;7,550</p>
-          </div>
-
-          <div class="summary-card">
-            <h3>Total Expenses</h3>
-            <p class="amount">24</p>
-          </div>
-        </div>
+        <!-- CSS Grid: 4 columns — cards rendered dynamically by script.js -->
+        <div class="summary-grid"></div>
       </div>
     </section>
 
@@ -93,70 +73,8 @@
         <h2 class="section-title">Monthly Budget</h2>
         <p class="section-desc">See how much you have spent in each category.</p>
 
-        <!-- CSS Grid: 2 columns -->
-        <div class="budget-grid">
-
-          <!-- Food — normal -->
-          <div class="budget-card">
-            <div class="budget-card-header">
-              <h3>Food</h3>
-              <span>&#8377;3,200 / &#8377;5,000</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill" style="width: 64%;"></div>
-            </div>
-            <p class="percent">64% used</p>
-          </div>
-
-          <!-- Transport — warning (near limit) -->
-          <div class="budget-card">
-            <div class="budget-card-header">
-              <h3>Transport</h3>
-              <span>&#8377;2,600 / &#8377;3,000</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill warning" style="width: 87%;"></div>
-            </div>
-            <p class="percent">87% used — nearing limit</p>
-          </div>
-
-          <!-- Shopping — normal -->
-          <div class="budget-card">
-            <div class="budget-card-header">
-              <h3>Shopping</h3>
-              <span>&#8377;2,800 / &#8377;4,000</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill" style="width: 70%;"></div>
-            </div>
-            <p class="percent">70% used</p>
-          </div>
-
-          <!-- Utilities — normal -->
-          <div class="budget-card">
-            <div class="budget-card-header">
-              <h3>Utilities</h3>
-              <span>&#8377;1,850 / &#8377;3,000</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill" style="width: 62%;"></div>
-            </div>
-            <p class="percent">62% used</p>
-          </div>
-
-          <!-- Other — exceeded (danger state demo) -->
-          <div class="budget-card">
-            <div class="budget-card-header">
-              <h3>Other</h3>
-              <span>&#8377;1,100 / &#8377;1,000</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill danger" style="width: 100%;"></div>
-            </div>
-            <p class="percent">110% used — over budget</p>
-          </div>
-
-        </div>
+        <!-- CSS Grid: 2 columns — cards rendered dynamically by script.js -->
+        <div class="budget-grid"></div>
       </div>
     </section>
 
@@ -178,34 +96,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>18 Aug</td>
-                <td>Domino's Pizza</td>
-                <td><span class="category-tag tag-food">Food</span></td>
-                <td>&#8377;450</td>
-                <td>UPI</td>
-              </tr>
-              <tr>
-                <td>17 Aug</td>
-                <td>Uber Ride</td>
-                <td><span class="category-tag tag-transport">Transport</span></td>
-                <td>&#8377;180</td>
-                <td>UPI</td>
-              </tr>
-              <tr>
-                <td>16 Aug</td>
-                <td>Amazon Purchase</td>
-                <td><span class="category-tag tag-shopping">Shopping</span></td>
-                <td>&#8377;399</td>
-                <td>Card</td>
-              </tr>
-              <tr>
-                <td>15 Aug</td>
-                <td>Electricity Bill</td>
-                <td><span class="category-tag tag-utilities">Utilities</span></td>
-                <td>&#8377;1,200</td>
-                <td>Net Banking</td>
-              </tr>
+              <!-- Rows rendered dynamically by script.js -->
             </tbody>
           </table>
         </div>
@@ -316,6 +207,6 @@
       </nav>
     </div>
   </footer>
-
+  <script src="script.js"></script>
 </body>
 </html>

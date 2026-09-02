@@ -1,3 +1,4 @@
+
 /* ---------- CSS Variables ---------- */
 :root {
   --green: #4caf50;
@@ -52,9 +53,12 @@ img {
 }
 
 /* ---------- Anchor scroll offset (fixes sticky navbar covering section tops) ---------- */
-main section[id],
-header#home {
+main section[id] {
   scroll-margin-top: 70px;
+}
+
+header#home {
+  scroll-margin-top: 0;
 }
 
 /* ---------- Reusable Container ---------- */
