@@ -1,0 +1,6 @@
+/* Reset only — all actual styling lives in App.css (SnapSeed's original stylesheet) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
