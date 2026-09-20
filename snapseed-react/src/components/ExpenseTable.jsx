@@ -1,7 +1,10 @@
-import { categoryLabels } from "../data";
+import { categoryLabels, formatDate } from "../data";
 
 function ExpenseTable({ expenses }) {
-  const sorted = [...expenses].reverse();
+  // Sort chronologically by actual date (oldest to newest)
+  const sorted = [...expenses].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
 
   return (
     <section className="section section-grey" id="expenses">
@@ -23,7 +26,7 @@ function ExpenseTable({ expenses }) {
             <tbody>
               {sorted.map((exp) => (
                 <tr key={exp.id}>
-                  <td>{exp.date}</td>
+                  <td>{formatDate(exp.date)}</td>
                   <td>{exp.desc}</td>
                   <td>
                     <span className={`category-tag tag-${exp.category}`}>

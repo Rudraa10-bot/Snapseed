@@ -26,15 +26,9 @@ function AddExpenseForm({ onAddExpense }) {
       return;
     }
 
-    const dateObj = new Date(form.date);
-    const formattedDate = dateObj.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short"
-    });
-
     onAddExpense({
       id: Date.now(),
-      date: formattedDate,
+      date: form.date, // stored as ISO (yyyy-mm-dd) — formatted for display in ExpenseTable
       desc: form.description,
       category: form.category,
       amount: parseFloat(form.amount),

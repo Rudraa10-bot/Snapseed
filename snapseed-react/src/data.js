@@ -16,11 +16,17 @@ export const paymentLabels = {
 };
 
 export const initialExpenses = [
-  { id: 1, date: "18 Aug", desc: "Domino's Pizza", category: "food", amount: 450, payment: "UPI" },
-  { id: 2, date: "17 Aug", desc: "Uber Ride", category: "transport", amount: 180, payment: "UPI" },
-  { id: 3, date: "16 Aug", desc: "Amazon Purchase", category: "shopping", amount: 399, payment: "Card" },
-  { id: 4, date: "15 Aug", desc: "Electricity Bill", category: "utilities", amount: 1200, payment: "Net Banking" }
+  { id: 1, date: "2026-08-18", desc: "Domino's Pizza", category: "food", amount: 450, payment: "UPI" },
+  { id: 2, date: "2026-08-17", desc: "Uber Ride", category: "transport", amount: 180, payment: "UPI" },
+  { id: 3, date: "2026-08-16", desc: "Amazon Purchase", category: "shopping", amount: 399, payment: "Card" },
+  { id: 4, date: "2026-08-15", desc: "Electricity Bill", category: "utilities", amount: 1200, payment: "Net Banking" }
 ];
+
+// Formats an ISO date string ("2026-08-18") into display form ("18 Aug")
+export function formatDate(isoDate) {
+  const d = new Date(isoDate);
+  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+}
 
 export const initialBudgets = {
   food: 5000,
