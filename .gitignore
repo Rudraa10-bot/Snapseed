@@ -1,0 +1,28 @@
+# Build outputs
+target/
+node_modules/
+dist/
+build/
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.classpath
+.project
+.settings
+.springBeans
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local data
+data/
+*.log
+
+# Environment files
+.env
+.env.local

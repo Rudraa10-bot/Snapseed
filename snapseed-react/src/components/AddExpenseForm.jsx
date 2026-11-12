@@ -6,36 +6,45 @@ const emptyForm = {
   amount: "",
   category: "",
   date: "",
-  payment: "upi",
-  notes: ""
+  payment: "upi"
 };
 
 function AddExpenseForm({ onAddExpense }) {
   const [form, setForm] = useState(emptyForm);
+  const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setForm((prev) => ({ ...prev, [id]: value }));
+    if (error) setError(null);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // stops page reload — the issue seen in the HTML-only version
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     if (!form.description || !form.amount || !form.category || !form.date) {
       alert("Please fill in all required fields.");
       return;
     }
 
-    onAddExpense({
-      id: Date.now(),
-      date: form.date, // stored as ISO (yyyy-mm-dd) — formatted for display in ExpenseTable
+    setSubmitting(true);
+    setError(null);
+
+    const expenseData = {
+      date: form.date,
       desc: form.description,
       category: form.category,
       amount: parseFloat(form.amount),
       payment: paymentLabels[form.payment] || form.payment
-    });
+    };
 
-    setForm(emptyForm);
+    const success = await onAddExpense(expenseData);
+    setSubmitting(false);
+
+    if (success) {
+      setForm(emptyForm);
+    }
   };
 
   return (
@@ -43,6 +52,12 @@ function AddExpenseForm({ onAddExpense }) {
       <div className="container">
         <h2 className="section-title">Add New Expense</h2>
         <p className="section-desc">Fill in the details below to add an expense.</p>
+
+        {error && (
+          <div className="error-banner">
+            <strong>Error:</strong> {error}
+          </div>
+        )}
 
         <form className="expense-form" onSubmit={handleSubmit}>
           <div className="form-grid">
@@ -96,20 +111,11 @@ function AddExpenseForm({ onAddExpense }) {
               </select>
             </div>
 
-            <div className="form-group full-width">
-              <label htmlFor="notes">Notes (Optional)</label>
-              <textarea
-                id="notes"
-                placeholder="Any extra details..."
-                rows="3"
-                value={form.notes}
-                onChange={handleChange}
-              ></textarea>
-            </div>
-
             <div className="form-actions">
-              <button type="submit" className="btn btn-primary">Save Expense</button>
-              <button type="button" className="btn btn-outline" onClick={() => setForm(emptyForm)}>Clear</button>
+              <button type="submit" className="btn btn-primary" disabled={submitting}>
+                {submitting ? "Saving..." : "Save Expense"}
+              </button>
+              <button type="button" className="btn btn-outline" onClick={() => setForm(emptyForm)} disabled={submitting}>Clear</button>
             </div>
           </div>
         </form>

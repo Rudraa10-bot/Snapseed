@@ -1,6 +1,6 @@
 import { categoryLabels, formatDate } from "../data";
 
-function ExpenseTable({ expenses }) {
+function ExpenseTable({ expenses, onDeleteExpense }) {
   // Sort chronologically by actual date (oldest to newest)
   const sorted = [...expenses].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
@@ -21,6 +21,7 @@ function ExpenseTable({ expenses }) {
                 <th>Category</th>
                 <th>Amount</th>
                 <th>Payment Method</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -35,6 +36,20 @@ function ExpenseTable({ expenses }) {
                   </td>
                   <td>&#8377;{exp.amount.toLocaleString("en-IN")}</td>
                   <td>{exp.payment}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-delete"
+                      onClick={() => {
+                        if (window.confirm(`Delete "${exp.desc}"?`)) {
+                          onDeleteExpense(exp.id);
+                        }
+                      }}
+                      aria-label={`Delete ${exp.desc}`}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
