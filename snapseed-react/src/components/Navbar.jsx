@@ -12,7 +12,7 @@ function scrollToSection(e, id) {
   }
 }
 
-function Navbar() {
+function Navbar({ onLogout }) {
   return (
     <header className="navbar" id="home">
       <nav className="container">
@@ -33,6 +33,13 @@ function Navbar() {
               Add Expense
             </a>
           </li>
+          {onLogout && (
+            <li>
+              <button className="btn btn-outline" onClick={onLogout} type="button">
+                Sign out
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

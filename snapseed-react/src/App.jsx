@@ -9,13 +9,17 @@ import AddExpenseForm from "./components/AddExpenseForm";
 import BudgetAlert from "./components/BudgetAlert";
 import About from "./components/About";
 import Footer from "./components/Footer";
+import Login from "./components/Login";
 import "./App.css";
 import {
   getExpenses,
   addExpense,
   deleteExpense,
   getBudgets,
-  updateBudget
+  updateBudget,
+  isAuthenticated,
+  clearCredentials,
+  onUnauthenticated
 } from "./api";
 
 function App() {
@@ -23,6 +27,15 @@ function App() {
   const [budgets, setBudgets] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [authenticated, setAuthenticated] = useState(() => isAuthenticated());
+
+  useEffect(() => {
+    onUnauthenticated(() => {
+      setAuthenticated(false);
+      setExpenses([]);
+      setBudgets({});
+    });
+  }, []);
 
   const loadData = async () => {
     setLoading(true);
@@ -39,15 +52,31 @@ function App() {
       }, {});
       setBudgets(budgetsObj);
     } catch (err) {
-      setError(err.message || "Failed to load data");
+      if (err.message !== "Unauthenticated") {
+        setError(err.message || "Failed to load data");
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
+  const handleLogin = () => {
+    setAuthenticated(true);
     loadData();
-  }, []);
+  };
+
+  const handleLogout = () => {
+    clearCredentials();
+    setAuthenticated(false);
+    setExpenses([]);
+    setBudgets({});
+  };
+
+  useEffect(() => {
+    if (authenticated) {
+      loadData();
+    }
+  }, [authenticated]);
 
   const handleAddExpense = async (newExpense) => {
     try {
@@ -56,6 +85,10 @@ function App() {
       setError(null);
       return true;
     } catch (err) {
+      if (err.message === "Unauthenticated") {
+        handleLogout();
+        return false;
+      }
       if (err.fieldErrors) {
         setError(Object.values(err.fieldErrors).join(", "));
       } else {
@@ -71,6 +104,10 @@ function App() {
       setBudgets((prev) => ({ ...prev, [category]: updated.limit }));
       setError(null);
     } catch (err) {
+      if (err.message === "Unauthenticated") {
+        handleLogout();
+        return;
+      }
       if (err.fieldErrors) {
         setError(Object.values(err.fieldErrors).join(", "));
       } else {
@@ -85,14 +122,22 @@ function App() {
       setExpenses((prev) => prev.filter((e) => e.id !== id));
       setError(null);
     } catch (err) {
+      if (err.message === "Unauthenticated") {
+        handleLogout();
+        return;
+      }
       setError(err.message || "Failed to delete expense");
     }
   };
 
+  if (!authenticated) {
+    return <Login onLogin={handleLogin} />;
+  }
+
   if (loading) {
     return (
       <>
-        <Navbar />
+        <Navbar onLogout={handleLogout} />
         <main>
           <div className="loading-container">
             <p>Loading...</p>
@@ -106,7 +151,7 @@ function App() {
   if (error) {
     return (
       <>
-        <Navbar />
+        <Navbar onLogout={handleLogout} />
         <main>
           <div className="error-container">
             <div className="error-banner">
@@ -124,7 +169,7 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar onLogout={handleLogout} />
       <main>
         <Hero />
         <SummaryCards expenses={expenses} budgets={budgets} />

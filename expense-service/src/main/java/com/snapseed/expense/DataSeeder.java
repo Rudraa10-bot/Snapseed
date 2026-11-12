@@ -1,6 +1,7 @@
 package com.snapseed.expense;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -10,10 +11,17 @@ public class DataSeeder implements CommandLineRunner {
 
     private final ExpenseRepository expenseRepository;
     private final BudgetRepository budgetRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataSeeder(ExpenseRepository expenseRepository, BudgetRepository budgetRepository) {
+    public DataSeeder(ExpenseRepository expenseRepository,
+                      BudgetRepository budgetRepository,
+                      UserRepository userRepository,
+                      PasswordEncoder passwordEncoder) {
         this.expenseRepository = expenseRepository;
         this.budgetRepository = budgetRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -30,6 +38,9 @@ public class DataSeeder implements CommandLineRunner {
             budgetRepository.save(new Budget("shopping", 4000));
             budgetRepository.save(new Budget("utilities", 3000));
             budgetRepository.save(new Budget("other", 1000));
+        }
+        if (userRepository.count() == 0) {
+            userRepository.save(new User("demo", passwordEncoder.encode("demo123")));
         }
     }
 }
