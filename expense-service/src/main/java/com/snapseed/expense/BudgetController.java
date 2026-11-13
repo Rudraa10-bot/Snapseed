@@ -2,6 +2,7 @@ package com.snapseed.expense;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,26 +27,31 @@ public class BudgetController {
         this.budgetService = budgetService;
     }
 
+    private String currentUsername(Authentication authentication) {
+        return authentication.getName();
+    }
+
     @GetMapping
-    public List<BudgetStatus> list() {
+    public List<BudgetStatus> list(Authentication authentication) {
         logger.info("Controller: GET /budgets");
-        return budgetService.getAllStatuses();
+        return budgetService.getAllStatuses(currentUsername(authentication));
     }
 
     @GetMapping("/alerts")
-    public List<BudgetStatus> alerts() {
+    public List<BudgetStatus> alerts(Authentication authentication) {
         logger.info("Controller: GET /budgets/alerts");
-        return budgetService.getAlerts();
+        return budgetService.getAlerts(currentUsername(authentication));
     }
 
     @GetMapping("/{category}")
-    public BudgetStatus get(@PathVariable String category) {
-        return budgetService.getStatus(category);
+    public BudgetStatus get(@PathVariable String category, Authentication authentication) {
+        return budgetService.getStatus(category, currentUsername(authentication));
     }
 
     @PutMapping("/{category}")
     public BudgetStatus update(@PathVariable String category,
-                               @RequestBody BudgetLimitRequest request) {
+                               @RequestBody BudgetLimitRequest request,
+                               Authentication authentication) {
         logger.info("Controller: PUT /budgets/{}", category);
         return budgetService.updateLimit(category, request.limit());
     }

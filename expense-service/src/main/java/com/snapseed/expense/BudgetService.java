@@ -24,17 +24,17 @@ public class BudgetService {
         this.expenseService = expenseService;
     }
 
-    public List<BudgetStatus> getAllStatuses() {
-        Map<String, Double> spent = expenseService.totalsByCategory();
+    public List<BudgetStatus> getAllStatuses(String username) {
+        Map<String, Double> spent = expenseService.totalsByCategory(username);
         return budgetRepository.findAll().stream()
                 .map(b -> toStatus(b, spent.getOrDefault(b.getCategory(), 0.0)))
                 .toList();
     }
 
-    public BudgetStatus getStatus(String category) {
+    public BudgetStatus getStatus(String category, String username) {
         Budget budget = budgetRepository.findByCategory(category)
                 .orElseThrow(() -> new BudgetNotFoundException(category));
-        double spent = expenseService.totalsByCategory().getOrDefault(category, 0.0);
+        double spent = expenseService.totalsByCategory(username).getOrDefault(category, 0.0);
         return toStatus(budget, spent);
     }
 
@@ -47,12 +47,14 @@ public class BudgetService {
                 .orElseThrow(() -> new BudgetNotFoundException(category));
         budgetRepository.save(new Budget(category, newLimit));
         logger.info("Service: budget limit for {} changed to {}", category, newLimit);
-        return getStatus(category);
+        // Note: Budget limits are shared across all users (global entity),
+        // so this change affects all users.
+        return getStatus(category, null);
     }
 
     // Business rule: alerts are the categories at 80% or more, highest percentage first
-    public List<BudgetStatus> getAlerts() {
-        return getAllStatuses().stream()
+    public List<BudgetStatus> getAlerts(String username) {
+        return getAllStatuses(username).stream()
                 .filter(s -> s.percent() >= WARNING_PERCENT)
                 .sorted(Comparator.comparingLong(BudgetStatus::percent).reversed())
                 .toList();

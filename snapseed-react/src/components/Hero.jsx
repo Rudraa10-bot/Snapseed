@@ -8,7 +8,7 @@ function scrollToSection(e, id) {
 
 function Hero() {
   return (
-    <section className="hero">
+    <section className="section hero">
       <div className="container">
         <h1>Welcome to SnapSeed</h1>
         <p>Track your expenses and manage your monthly budget easily.</p>

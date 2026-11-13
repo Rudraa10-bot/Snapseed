@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,31 +32,35 @@ public class ExpenseController {
         this.expenseService = expenseService;
     }
 
+    private String currentUsername(Authentication authentication) {
+        return authentication.getName();
+    }
+
     @GetMapping
-    public List<Expense> list() {
+    public List<Expense> list(Authentication authentication) {
         logger.info("GET /expenses");
-        return expenseService.getAll();
+        return expenseService.getAll(currentUsername(authentication));
     }
 
     @GetMapping("/{id}")
-    public Expense get(@PathVariable long id) {
-        return expenseService.getById(id);
+    public Expense get(@PathVariable long id, Authentication authentication) {
+        return expenseService.getById(id, currentUsername(authentication));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Expense create(@Valid @RequestBody ExpenseRequest request) {
-        return expenseService.add(request);
+    public Expense create(@Valid @RequestBody ExpenseRequest request, Authentication authentication) {
+        return expenseService.add(request, currentUsername(authentication));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable long id) {
-        expenseService.delete(id);
+    public void delete(@PathVariable long id, Authentication authentication) {
+        expenseService.delete(id, currentUsername(authentication));
     }
 
     @GetMapping("/summary")
-    public Map<String, Double> summary() {
-        return expenseService.totalsByCategory();
+    public Map<String, Double> summary(Authentication authentication) {
+        return expenseService.totalsByCategory(currentUsername(authentication));
     }
 }

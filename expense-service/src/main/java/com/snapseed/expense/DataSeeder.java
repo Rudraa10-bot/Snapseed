@@ -26,11 +26,15 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        // Seeded demo user (username: demo, password: demo123) so the evaluator can always get in
+        User demoUser = userRepository.findByUsername("demo").orElseGet(() ->
+                userRepository.save(new User("demo", passwordEncoder.encode("demo123"))));
+
         if (expenseRepository.count() == 0) {
-            expenseRepository.save(new Expense(LocalDate.parse("2026-08-18"), "Domino's Pizza", "food", 450, "UPI"));
-            expenseRepository.save(new Expense(LocalDate.parse("2026-08-17"), "Uber Ride", "transport", 180, "UPI"));
-            expenseRepository.save(new Expense(LocalDate.parse("2026-08-16"), "Amazon Purchase", "shopping", 399, "Card"));
-            expenseRepository.save(new Expense(LocalDate.parse("2026-08-15"), "Electricity Bill", "utilities", 1200, "Net Banking"));
+            expenseRepository.save(new Expense(LocalDate.parse("2026-08-18"), "Domino's Pizza", "food", 450, "UPI", demoUser));
+            expenseRepository.save(new Expense(LocalDate.parse("2026-08-17"), "Uber Ride", "transport", 180, "UPI", demoUser));
+            expenseRepository.save(new Expense(LocalDate.parse("2026-08-16"), "Amazon Purchase", "shopping", 399, "Card", demoUser));
+            expenseRepository.save(new Expense(LocalDate.parse("2026-08-15"), "Electricity Bill", "utilities", 1200, "Net Banking", demoUser));
         }
         if (budgetRepository.count() == 0) {
             budgetRepository.save(new Budget("food", 5000));
@@ -38,9 +42,6 @@ public class DataSeeder implements CommandLineRunner {
             budgetRepository.save(new Budget("shopping", 4000));
             budgetRepository.save(new Budget("utilities", 3000));
             budgetRepository.save(new Budget("other", 1000));
-        }
-        if (userRepository.count() == 0) {
-            userRepository.save(new User("demo", passwordEncoder.encode("demo123")));
         }
     }
 }

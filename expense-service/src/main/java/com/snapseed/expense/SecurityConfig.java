@@ -28,6 +28,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/auth/register").permitAll()
                 .requestMatchers("/expenses/**").authenticated()
                 .requestMatchers("/budgets/**").authenticated()
                 .anyRequest().permitAll()

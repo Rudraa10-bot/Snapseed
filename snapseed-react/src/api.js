@@ -98,6 +98,33 @@ export async function login(username, password) {
   }
 }
 
+export async function register(username, password) {
+  try {
+    const res = await fetch(`${API_BASE}/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (res.status === 201) {
+      // Immediately sign in with the new credentials
+      await login(username, password);
+      return true;
+    }
+
+    if (res.status === 400 || res.status === 409) {
+      const data = await res.json();
+      const field = Object.keys(data)[0];
+      throw new Error(data[field] || `Registration failed: ${res.status}`);
+    }
+
+    throw new Error(`Registration failed: ${res.status}`);
+  } catch (err) {
+    if (err.message.startsWith("Registration failed")) throw err;
+    throw new Error("Network error. Please try again.");
+  }
+}
+
 export async function getExpenses() {
   return request("/expenses");
 }
